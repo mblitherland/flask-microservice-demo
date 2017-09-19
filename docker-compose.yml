@@ -1,0 +1,34 @@
+version: "2.1"
+services:
+  backend:
+    container_name: demo_backend
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DEBUG=True
+  orders:
+    container_name: demo_orders
+    build:
+      context: ./orders
+    ports:
+      - "5001:5000"
+    environment:
+      - DEBUG=True
+  items:
+    container_name: demo_items
+    build:
+      context: ./items
+    ports:
+      - "5002:5000"
+    environment:
+      - DEBUG=True
+  aggregate:
+    container_name: demo_aggregate
+    build:
+      context: ./aggregate
+    ports:
+      - "5003:5000"
+    environment:
+      - DEBUG=True

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, json, jsonify, request
 import logging
 import requests
 
@@ -19,6 +19,13 @@ def orders():
 @app.route('/detail/<int:order_id>', methods=['GET'])
 def detail(order_id):
     data = requests.get('http://demo_aggregate:5000/detail/{}'.format(order_id)).json()
+    return jsonify(data), 200
+
+
+@app.route('/custSearch/<string:name>', methods=['GET'])
+def cust_search(name):
+    payload = {'name': name}
+    data = requests.post('http://demo_orders:5000/custSearch', json=payload).json()
     return jsonify(data), 200
 
 

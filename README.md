@@ -6,6 +6,8 @@ This project is an example of using nothing but python3, flask, requests, and do
 
 Here's the architecture diagram:
 
+_Edit: I added another GET to the backend to test the custSearch functionality and demo a JSON payload in client. Details below._
+
 ![Architecture Diagram](https://i.imgur.com/IUAfN8O.png)
 
 For testing fun all of the microservices are exposed, but in a real application only the backend (or API) would be.
@@ -99,10 +101,17 @@ Notice how the "items" element has been replaced with a list of item details.
 }
 ```
 
-### Test the search
+### Customer name search
 
-http://localhost:5001/custSearch
+http://localhost:5000/custSearch/Dan
+
+You can now hit this URL directly with a GET to perform a search by partial customer name. A space is just '%20'. This calls the underlying custSearch endpoint for the orders microservice, but takes the name and forms a JSON payload which is possibly a more familiar way to send data to a microservice for it to operate on rather than doing it through parameters.  Again Flask makes this absurdly simple.
+
+
+### Test the search in the data microservice
+
+POST http://localhost:5001/custSearch
 
 *Note the port of the orders microservice here! This isn't the backend!*
 
-Make sure to set "Content-Type: application/json" in the "headers" and to put something like `{"name": "Daniel"}` in the "body".  You'll get a list of order where the "cust" field contains the search parameter. The customer names are randomly generated, so you might want to try something simple.
+Make sure to use a POST and to set "Content-Type: application/json" in the "headers" and to put something like `{"name": "Daniel"}` in the "body".  You'll get a list of order where the "cust" field contains the search parameter. The customer names are randomly generated, so you might want to try something simple.
